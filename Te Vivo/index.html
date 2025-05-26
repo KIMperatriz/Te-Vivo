@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>te esperando</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Delius&family=Lexend+Deca:wght@300&family=Outfit:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0e0e0e;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 100px auto;
+      padding: 20px;
+      background: none;
+    }
+
+    .contador-section {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-family: 'Lexend Deca', sans-serif;
+      font-weight: 300;
+      font-size: 2em;
+      color: #ff4d4d;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    #contador {
+      font-family: 'Delius', cursive;
+      font-size: 1.5em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .texto {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      margin: 30px 0 20px 0;
+      padding: 0;
+      background: none;
+      color: #ccc;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .fio-vermelho {
+      position: absolute;
+      top: -280px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 900px;
+      height: 400px;
+      background-image: url("imagens/maos_fio_vermelho.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center center;
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Estilos do carrossel personalizado */
+    .galeria-container {
+      position: relative;
+      width: 100%;
+      margin: 0;
+      padding: 20px 0;
+      z-index: 2;
+    }
+
+    .galeria {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .foto-slide {
+      position: absolute;
+      transition: all 0.5s ease;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(255, 77, 77, 0.3);
+    }
+
+    .foto-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Foto central (ativa) */
+    .foto-slide.ativa {
+      width: 350px;
+      height: 400px;
+      z-index: 3;
+      transform: translateX(0) scale(1);
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    /* Foto à esquerda */
+    .foto-slide.esquerda {
+      width: 350px;
+      height: 400px;
+      z-index: 2;
+      transform: translateX(-220px) scale(0.8);
+      opacity: 0.6;
+      filter: blur(2px);
+    }
+
+    /* Foto à direita */
+    .foto-slide.direita {
+      width: 350px;
+      height: 400px;
+      z-index: 2;
+      transform: translateX(220px) scale(0.8);
+      opacity: 0.6;
+      filter: blur(2px);
+    }
+
+    /* Fotos escondidas */
+    .foto-slide.escondida {
+      opacity: 0;
+      transform: scale(0.5);
+      z-index: 1;
+    }
+
+    /* Controles */
+    .controles {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn-nav {
+      background-color: rgba(128, 128, 128, 0.8);
+      color: #333;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 10px;
+    }
+
+    .btn-nav:hover {
+      background-color: rgba(100, 100, 100, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* Indicadores */
+    .indicadores {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .indicador {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 77, 77, 0.5);
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .indicador.ativo {
+      background-color: #ff4d4d;
+    }
+
+    /* Controle de volume */
+    .volume-control {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      background-color: rgba(28, 28, 28, 0.8);
+      padding: 10px 15px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .volume-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+      margin-right: 10px;
+      transition: color 0.3s;
+    }
+
+    .volume-btn:hover {
+      color: #ff4d4d;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #ff4d4d;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: #ff4d4d;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .foto-slide.ativa {
+        width: 280px;
+        height: 320px;
+      }
+
+      .foto-slide.esquerda,
+      .foto-slide.direita {
+        width: 280px;
+        height: 320px;
+        transform: translateX(-160px) scale(0.7);
+      }
+
+      .foto-slide.direita {
+        transform: translateX(160px) scale(0.7);
+      }
+       .volume-control {
+        top: 10px;
+        right: 10px;
+        padding: 8px 12px;
+      }
+
+      .volume-slider {
+        width: 60px;
+      }
+    }
+    
+
+
+    @media (max-width: 480px) {
+      .foto-slide.ativa {
+        width: 220px;
+        height: 280px;
+      }
+
+      .foto-slide.esquerda,
+      .foto-slide.direita {
+        width: 220px;
+        height: 280px;
+        transform: translateX(-130px) scale(0.6);
+      }
+
+      .foto-slide.direita {
+        transform: translateX(130px) scale(0.6);
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <div class="volume-control">
+    <button class="volume-btn" onclick="toggleMute()" id="volumeBtn">🔊</button>
+    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+  </div>
+
+  <audio id="backgroundMusic" loop>
+    <source src="diewithsmile.mp3" type="audio/mpeg">
+
+  </audio>
+
+  <div class="container">
+    <h1>te esperando há</h1>
+    
+    <div class="contador-section">
+      <div id="contador">carregando...</div>
+      <div class="fio-vermelho"></div>
+    </div>
+
+    <div class="galeria-container">
+      <div class="galeria" id="galeria">
+        <div class="foto-slide" data-index="0">
+          <img src="imagens/foto1.jpeg" alt="Foto 1" />
+        </div>
+        <div class="foto-slide" data-index="1">
+          <img src="imagens/foto2.jpeg" alt="Foto 2" />
+        </div>
+        <div class="foto-slide" data-index="2">
+          <img src="imagens/foto3.jpeg" alt="Foto 3" />
+        </div>
+        <div class="foto-slide" data-index="3">
+          <img src="imagens/foto4.jpeg" alt="Foto 4" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto5.jpeg" alt="Foto 5" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto6.jpeg" alt="Foto 6" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto7.jpeg" alt="Foto 7" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto8.jpeg" alt="Foto 8" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto9.jpeg" alt="Foto 9" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto10.jpeg" alt="Foto 10" />
+        </div>
+      <div class="foto-slide" data-index="4">
+          <img src="imagens/foto11.jpeg" alt="Foto 11" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto12.jpeg" alt="Foto 12" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto13.jpeg" alt="Foto 13" />
+        </div>
+        <div class="foto-slide" data-index="4">
+          <img src="imagens/foto14.jpeg" alt="Foto 14" />
+        </div>
+ 
+      </div>
+
+      <div class="controles">
+        <button class="btn-nav" onclick="anteriorFoto()">‹</button>
+        <button class="btn-nav" onclick="proximaFoto()">›</button>
+      </div>
+
+      <div class="indicadores" id="indicadores">
+        <!-- Indicadores serão criados pelo JavaScript -->
+      </div>
+    </div>
+
+    <div class="texto">
+    
+
+<p>os dias passam, e com cada um deles eu aprendo a me refazer.
+não tô parada, nem congelada no tempo — tô me cuidando, me entendendo, me transformando.
+e mesmo assim, continuo segurando com carinho o nosso fio vermelho, esse que me liga a ti com ternura, mesmo na ausência.</p>
+
+<p>não sei quando, nem se. mas enquanto a resposta não chega, eu sigo com esperança.
+faço da minha vida um lugar de paz, do meu coração uma casa arrumadinha, e das minhas orações um lembrete: que Deus nunca solta a mão de quem ama com verdade.</p>
+
+<p>não espero por capricho, nem por orgulho — eu espero porque acredito.
+e mesmo se tu não souber, ou fingir que esqueceu, eu sigo firme. porque amar também é isso: segurar um fio invisível e confiar que ele ainda pode te guiar de volta pra casa.</p>
+
+<p>então hoje, como todos os dias, eu escolho ficar aqui.
+não presa ao passado, mas em paz com tudo que vivi.
+segurando tua parte com cuidado, e a mão de Deus com fé.</p>
+
+<p>e se um dia tu voltar… vai ver que eu tava aqui.
+não perfeita, mas cheia de amor.</p> <br>
+
+
+– KIM
+<p><em>And our love's the only war worth fighting for</em>
+<p><em>If the world was ending, I'd wanna be next to you</em></p>
+
+    </div>
+  </div>
+
+  <script>
+    // Controle de áudio
+    const audio = document.getElementById('backgroundMusic');
+    const volumeBtn = document.getElementById('volumeBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    let isMuted = false;
+
+    // Configurar volume inicial
+    audio.volume = 0.3;
+
+    // Função para alternar mute
+    function toggleMute() {
+      if (isMuted) {
+        audio.muted = false;
+        volumeBtn.textContent = '🔊';
+        isMuted = false;
+      } else {
+        audio.muted = true;
+        volumeBtn.textContent = '🔇';
+        isMuted = true;
+      }
+    }
+
+    // Controle do slider de volume
+    volumeSlider.addEventListener('input', function() {
+      audio.volume = this.value / 100;
+      if (this.value == 0) {
+        volumeBtn.textContent = '🔇';
+        isMuted = true;
+      } else {
+        volumeBtn.textContent = '🔊';
+        isMuted = false;
+        audio.muted = false;
+      }
+    });
+
+    // Tentar tocar a música automaticamente
+    window.addEventListener('load', function() {
+      audio.play().catch(function(error) {
+        console.log('Autoplay foi bloqueado. Clique em qualquer lugar para iniciar a música.');
+      });
+    });
+
+    // Iniciar música com qualquer clique do usuário
+    document.addEventListener('click', function() {
+      if (audio.paused) {
+        audio.play();
+      }
+    }, { once: true });
+
+    // Contador de tempo
+    const inicio = new Date("2025-05-09T00:00:00");
+    const contador = document.getElementById("contador");
+
+    function atualizarContador() {
+      const agora = new Date();
+      const diferenca = agora - inicio;
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferenca / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferenca / 1000) % 60);
+
+      contador.innerHTML = `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+
+    // Carrossel de fotos
+    let fotoAtual = 0;
+    const fotos = document.querySelectorAll('.foto-slide');
+    const totalFotos = fotos.length;
+
+    // Criar indicadores
+    function criarIndicadores() {
+      const indicadoresContainer = document.getElementById('indicadores');
+      for (let i = 0; i < totalFotos; i++) {
+        const indicador = document.createElement('span');
+        indicador.classList.add('indicador');
+        indicador.onclick = () => irParaFoto(i);
+        indicadoresContainer.appendChild(indicador);
+      }
+    }
+
+    // Atualizar posições das fotos
+    function atualizarFotos() {
+      fotos.forEach((foto, index) => {
+        foto.classList.remove('ativa', 'esquerda', 'direita', 'escondida');
+        
+        if (index === fotoAtual) {
+          foto.classList.add('ativa');
+        } else if (index === (fotoAtual - 1 + totalFotos) % totalFotos) {
+          foto.classList.add('esquerda');
+        } else if (index === (fotoAtual + 1) % totalFotos) {
+          foto.classList.add('direita');
+        } else {
+          foto.classList.add('escondida');
+        }
+      });
+
+      // Atualizar indicadores
+      const indicadores = document.querySelectorAll('.indicador');
+      indicadores.forEach((indicador, index) => {
+        indicador.classList.toggle('ativo', index === fotoAtual);
+      });
+    }
+
+    // Navegar para próxima foto
+    function proximaFoto() {
+      fotoAtual = (fotoAtual + 1) % totalFotos;
+      atualizarFotos();
+    }
+
+    // Navegar para foto anterior
+    function anteriorFoto() {
+      fotoAtual = (fotoAtual - 1 + totalFotos) % totalFotos;
+      atualizarFotos();
+    }
+
+    // Ir para foto específica
+    function irParaFoto(index) {
+      fotoAtual = index;
+      atualizarFotos();
+    }
+
+    // Auto-play
+    let autoPlay = setInterval(proximaFoto, 4000);
+
+    // Pausar auto-play ao passar o mouse
+    const galeriaContainer = document.querySelector('.galeria-container');
+    galeriaContainer.addEventListener('mouseenter', () => {
+      clearInterval(autoPlay);
+    });
+
+    galeriaContainer.addEventListener('mouseleave', () => {
+      autoPlay = setInterval(proximaFoto, 4000);
+    });
+
+    // Inicializar
+    criarIndicadores();
+    atualizarFotos();
+
+    // Navegação por teclado
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        anteriorFoto();
+      } else if (e.key === 'ArrowRight') {
+        proximaFoto();
+      }
+    });
+  </script>
+</body>
+</html>
