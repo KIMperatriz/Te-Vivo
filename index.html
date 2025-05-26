@@ -446,13 +446,13 @@ não perfeita, mas cheia de amor.</p> <br>
     });
 
     // Tentar tocar a música automaticamente
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function) {
       audio.play().catch(function(error) {
         console.log('Autoplay foi bloqueado. Clique em qualquer lugar para iniciar a música.');
       });
 
     // Iniciar música com qualquer clique do usuário
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function) {
       if (audio.paused) {
         audio.play();
       }
