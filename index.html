@@ -538,16 +538,6 @@ não perfeita, mas cheia de amor.</p> <br>
     // Auto-play
     let autoPlay = setInterval(proximaFoto, 4000);
 
-    // Pausar auto-play ao passar o mouse
-    const galeriaContainer = document.querySelector('.galeria-container');
-    galeriaContainer.addEventListener('mouseenter', () => {
-      clearInterval(autoPlay);
-    });
-
-    galeriaContainer.addEventListener('mouseleave', () => {
-      autoPlay = setInterval(proximaFoto, 4000);
-    });
-
     // Inicializar
     criarIndicadores();
     atualizarFotos();
