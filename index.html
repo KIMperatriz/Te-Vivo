@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Te Vivo</title>
-  <link rel="icon" type="image/png" href="coracao.png"
+  <link rel="icon" type="image/png" href="coracao.png" />
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -282,8 +282,6 @@
         width: 60px;
       }
     }
-    
-
 
     @media (max-width: 480px) {
       .foto-slide.ativa {
@@ -306,14 +304,13 @@
 </head>
 <body>
 
-    <div class="volume-control">
+  <div class="volume-control">
     <button class="volume-btn" onclick="toggleMute()" id="volumeBtn">🔊</button>
     <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
   </div>
 
   <audio id="backgroundMusic" loop>
     <source src="diewithsmile.mp3" type="audio/mpeg">
-
   </audio>
 
   <div class="container">
@@ -341,34 +338,33 @@
         <div class="foto-slide" data-index="4">
           <img src="imagens/foto5.jpeg" alt="Foto 5" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="5">
           <img src="imagens/foto6.jpeg" alt="Foto 6" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="6">
           <img src="imagens/foto7.jpeg" alt="Foto 7" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="7">
           <img src="imagens/foto8.jpeg" alt="Foto 8" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="8">
           <img src="imagens/foto9.jpeg" alt="Foto 9" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="9">
           <img src="imagens/foto10.jpeg" alt="Foto 10" />
         </div>
-      <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="10">
           <img src="imagens/foto11.jpeg" alt="Foto 11" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="11">
           <img src="imagens/foto12.jpeg" alt="Foto 12" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="12">
           <img src="imagens/foto13.jpeg" alt="Foto 13" />
         </div>
-        <div class="foto-slide" data-index="4">
+        <div class="foto-slide" data-index="13">
           <img src="imagens/foto14.jpeg" alt="Foto 14" />
         </div>
- 
       </div>
 
       <div class="controles">
@@ -382,30 +378,28 @@
     </div>
 
     <div class="texto">
-    
+      <p>os dias passam, e com cada um deles eu aprendo a me refazer.
+      não tô parada, nem congelada no tempo — tô me cuidando, me entendendo, me transformando.
+      e mesmo assim, continuo segurando com carinho o nosso fio vermelho, esse que me liga a ti com ternura, mesmo na ausência.</p>
 
-<p>os dias passam, e com cada um deles eu aprendo a me refazer.
-não tô parada, nem congelada no tempo — tô me cuidando, me entendendo, me transformando.
-e mesmo assim, continuo segurando com carinho o nosso fio vermelho, esse que me liga a ti com ternura, mesmo na ausência.</p>
+      <p>não sei quando, nem se. mas enquanto a resposta não chega, eu sigo com esperança.
+      faço da minha vida um lugar de paz, do meu coração uma casa arrumadinha, e das minhas orações um lembrete: que Deus nunca solta a mão de quem ama com verdade.</p>
 
-<p>não sei quando, nem se. mas enquanto a resposta não chega, eu sigo com esperança.
-faço da minha vida um lugar de paz, do meu coração uma casa arrumadinha, e das minhas orações um lembrete: que Deus nunca solta a mão de quem ama com verdade.</p>
+      <p>não espero por capricho, nem por orgulho — eu espero porque acredito.
+      e mesmo se tu não souber, ou fingir que esqueceu, eu sigo firme. porque amar também é isso: segurar um fio invisível e confiar que ele ainda pode te guiar de volta pra casa.</p>
 
-<p>não espero por capricho, nem por orgulho — eu espero porque acredito.
-e mesmo se tu não souber, ou fingir que esqueceu, eu sigo firme. porque amar também é isso: segurar um fio invisível e confiar que ele ainda pode te guiar de volta pra casa.</p>
+      <p>então hoje, como todos os dias, eu escolho ficar aqui.
+      não presa ao passado, mas em paz com tudo que vivi.
+      segurando tua parte com cuidado, e a mão de Deus com fé.</p>
 
-<p>então hoje, como todos os dias, eu escolho ficar aqui.
-não presa ao passado, mas em paz com tudo que vivi.
-segurando tua parte com cuidado, e a mão de Deus com fé.</p>
+      <p>e se um dia tu voltar… vai ver que eu tava aqui.
+      não perfeita, mas cheia de amor.</p>
+      
+      <br>
 
-<p>e se um dia tu voltar… vai ver que eu tava aqui.
-não perfeita, mas cheia de amor.</p> <br>
-
-
-– KIM
-<p><em>And our love's the only war worth fighting for</em>
-<p><em>If the world was ending, I'd wanna be next to you</em></p>
-
+      <p>– KIM</p>
+      <p><em>And our love's the only war worth fighting for</em></p>
+      <p><em>If the world was ending, I'd wanna be next to you</em></p>
     </div>
   </div>
 
@@ -446,13 +440,14 @@ não perfeita, mas cheia de amor.</p> <br>
     });
 
     // Tentar tocar a música automaticamente
-    window.addEventListener('load', function) {
+    window.addEventListener('load', function() {
       audio.play().catch(function(error) {
         console.log('Autoplay foi bloqueado. Clique em qualquer lugar para iniciar a música.');
       });
+    });
 
     // Iniciar música com qualquer clique do usuário
-    document.addEventListener('click', function) {
+    document.addEventListener('click', function() {
       if (audio.paused) {
         audio.play();
       }
