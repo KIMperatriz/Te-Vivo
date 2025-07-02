@@ -10,7 +10,7 @@ $(document).ready(function(){
   });
 });
 
-const inicio = new Date("2025-05-09T00:00:00");
+const inicio = new Date("2024-09-14T00:00:00");
 const contador = document.getElementById("contador");
 
 function atualizarContador() {
